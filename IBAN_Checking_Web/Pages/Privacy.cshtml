@@ -10,13 +10,11 @@
 <p>Use this page to detail your site's privacy policy.</p>
 
 
-<form asp-page-handler="Sum" method="post">
-    <input asp-for="ID" />
-    <input asp-for="ID2" />
-    <textarea rows="4" cols="50">@Model.Ats </textarea>
+<form asp-page-handler="Result" method="post">
+    <input asp-for="Input" />
+    <textarea rows="4" cols="50">@Model.Result </textarea>
 
-    <button class="btn btn-default">Click nx</button>
-
+    <button class="btn btn-default">Click</button>
 
 </form>
   

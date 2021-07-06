@@ -12,15 +12,15 @@ namespace IBAN_Checking_Web.Pages
     public class PrivacyModel : PageModel
     {
         [BindProperty]
-        public int ID { get; set; }
+        public string Input { get; set; }
         [BindProperty]
-        public int ID2 { get; set; }
-        [BindProperty]
-        public int Ats { get; set; }
+        public string Result { get; set; }
 
-        public void OnPostSum()
+        public Checker Checker;
+
+        public void OnPostResult()
         {
-            Ats = Class1.Sum(ID, ID2);
+            Result = Checker.CheckCountry(Input);
         }
 
         private readonly ILogger<PrivacyModel> _logger;
@@ -29,6 +29,7 @@ namespace IBAN_Checking_Web.Pages
         public PrivacyModel(ILogger<PrivacyModel> logger)
         {
             _logger = logger;
+            Checker = new Checker();
         }
 
         public void OnGet()

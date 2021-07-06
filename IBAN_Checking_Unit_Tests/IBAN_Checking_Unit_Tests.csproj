@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IBAN_Checking\IBAN_Checking_Library.csproj" />
+    <ProjectReference Include="..\IBAN_Checking_Library\IBAN_Checking_Library.csproj" />
   </ItemGroup>
 
 </Project>
