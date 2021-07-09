@@ -14,7 +14,7 @@ namespace IBAN_Checking_Unit_Tests
         }
 
         [Test]
-        public void Check()
+        public void TestCheck()
         {
             Assert.AreEqual(CheckingResult.ValueTooSmall, Checker.Check("LT60"));
             Assert.AreEqual(CheckingResult.CountryCodeNotKnown, Checker.Check("LL8330001234567"));
@@ -24,5 +24,12 @@ namespace IBAN_Checking_Unit_Tests
             Assert.AreEqual(CheckingResult.IsValid, Checker.Check("LT601010012345678901"));
             Assert.AreEqual(CheckingResult.IsValid, Checker.Check("LT 6_0-1010012345678901"));
         }
+
+        //[Test]
+        //public void TestCheckList()
+        //{
+        //    List<CheckingResult> 
+        //    Assert.AreEqual(C)
+        //}
     }
 }

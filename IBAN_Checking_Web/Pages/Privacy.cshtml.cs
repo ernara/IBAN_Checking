@@ -14,16 +14,18 @@ namespace IBAN_Checking_Web.Pages
         [BindProperty]
         public string Input { get; set; }
         [BindProperty]
-        public CheckingResult Result { get; set; }
+        public string Result { get; set; }
 
         private readonly IChecker Checker;
 
-
         public void OnPostResult()
         {
-            Result = Checker.Check(Input);
+            Result = "";
+            foreach (var item in Checker.CheckList(Input))
+            {
+                Result += item.ToString() + "\n";
+            }
         }
-
 
         public PrivacyModel(IChecker checker)
         {

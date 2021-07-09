@@ -1,7 +1,9 @@
-﻿namespace IBAN_Checking_Library
+﻿using System.Collections.Generic;
+
+namespace IBAN_Checking_Library
 {
     public interface IChecker
     {
-        CheckingResult Check(string s);
+        List<CheckingResult> CheckList(string s);
     }
 }

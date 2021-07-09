@@ -80,6 +80,24 @@ namespace IBAN_Checking_Library
             {"VG", 24}
         };
 
+        public List<CheckingResult> CheckList(string s)
+        {
+            string[] stringSeparators = new string[] { "\r\n", ";" };
+            string[] lines = s.Split(stringSeparators, StringSplitOptions.None);
+
+            var toReturn = new List<CheckingResult>();
+
+            foreach(string line in lines)
+            {
+                if (line.Length>0)
+                {
+                    toReturn.Add(Check(line));
+                }
+            }
+
+            return toReturn;
+        }
+
 
         public CheckingResult Check(string s)
         {
