@@ -14,14 +14,14 @@ namespace IBAN_Checking_Unit_Tests
         }
 
         [Test]
-        public void CheckCountry()
+        public void Check()
         {
-            Assert.AreEqual("Yes", Checker.CheckCountry("IE29 AIBK 9311 5212 3456 78"));
-            Assert.AreEqual("Yes", Checker.CheckCountry("PL27  1140  2004 0000 3002 0135 5387"));
-            Assert.AreEqual("Yes", Checker.CheckCountry("RO09 BCYP 0000 0012 3456 7890"));
-            Assert.AreEqual("None", Checker.CheckCountry("LT12|1000 0111 0100 1000"));
-            Assert.AreEqual("None", Checker.CheckCountry("LT12a1000 0111 0100 1000"));
-            Assert.AreEqual("None", Checker.CheckCountry("LT12111111111111111111111111111111111111110202020200220201000 0111 0100 1000"));
+            Assert.AreEqual(CheckingResult.ValueTooSmall, Checker.Check("LT60"));
+            Assert.AreEqual(CheckingResult.CountryCodeNotKnown, Checker.Check("LL8330001234567"));
+            Assert.AreEqual(CheckingResult.ValueTooSmall, Checker.Check("LT60101001234567890"));
+            Assert.AreEqual(CheckingResult.ValueTooBig, Checker.Check("LT6010100123456789010"));
+            Assert.AreEqual(CheckingResult.ValueFailsModule97Check, Checker.Check("LT601010012345678902"));
+            Assert.AreEqual(CheckingResult.IsValid, Checker.Check("LT601010012345678901"));
         }
     }
 }
