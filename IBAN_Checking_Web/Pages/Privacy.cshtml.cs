@@ -14,22 +14,20 @@ namespace IBAN_Checking_Web.Pages
         [BindProperty]
         public string Input { get; set; }
         [BindProperty]
-        public string Result { get; set; }
+        public CheckingResult Result { get; set; }
 
-        public Checker Checker;
+        private readonly IChecker Checker;
+
 
         public void OnPostResult()
         {
-            Result = Checker.CheckCountry(Input);
+            Result = Checker.Check(Input);
         }
 
-        private readonly ILogger<PrivacyModel> _logger;
 
-
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public PrivacyModel(IChecker checker)
         {
-            _logger = logger;
-            Checker = new Checker();
+            Checker = checker;
         }
 
         public void OnGet()

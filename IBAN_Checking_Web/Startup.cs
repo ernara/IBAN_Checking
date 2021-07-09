@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IBAN_Checking_Library;
 
 namespace IBAN_Checking_Web
 {
@@ -24,6 +25,7 @@ namespace IBAN_Checking_Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSingleton<IChecker, Checker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

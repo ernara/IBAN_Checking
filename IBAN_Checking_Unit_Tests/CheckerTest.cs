@@ -22,6 +22,7 @@ namespace IBAN_Checking_Unit_Tests
             Assert.AreEqual(CheckingResult.ValueTooBig, Checker.Check("LT6010100123456789010"));
             Assert.AreEqual(CheckingResult.ValueFailsModule97Check, Checker.Check("LT601010012345678902"));
             Assert.AreEqual(CheckingResult.IsValid, Checker.Check("LT601010012345678901"));
+            Assert.AreEqual(CheckingResult.IsValid, Checker.Check("LT 6_0-1010012345678901"));
         }
     }
 }

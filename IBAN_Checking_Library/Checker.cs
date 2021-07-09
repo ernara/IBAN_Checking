@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace IBAN_Checking_Library
 {
-    public class Checker
+    public class Checker : IChecker
     {
-        
+
         private static readonly IDictionary<string, int> Lengths = new Dictionary<string, int>
         {
             {"AL", 28},
@@ -80,10 +80,10 @@ namespace IBAN_Checking_Library
             {"VG", 24}
         };
 
-        
-        public static CheckingResult Check(string s)
+
+        public CheckingResult Check(string s)
         {
-            if (s.Length<15)
+            if (s.Length < 15)
             {
                 return CheckingResult.ValueTooSmall;
             }
@@ -119,11 +119,12 @@ namespace IBAN_Checking_Library
             return str;
         }
 
-        private static CheckingResult Module97Check(string s)
+        private CheckingResult Module97Check(string s)
         {
-            var newIban = s.Substring(4) + s.Substring(0, 4);
+            var newIban = s[4..] + s.Substring(0, 4);
 
-            newIban = Regex.Replace(newIban, @"\D", match => (match.Value[0] - 55).ToString());
+            var allNumbers = newIban.Select(c => (char.IsLetter(c)) ? (c - 55).ToString() : c.ToString());
+            newIban = string.Join("", allNumbers);
 
             var remainder = BigInteger.Parse(newIban) % 97;
 
