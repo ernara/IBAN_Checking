@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/privacy"
 @model PrivacyModel
 @{
     ViewData["Title"] = "Privacy Policy";
@@ -10,11 +10,22 @@
 <p>Use this page to detail your site's privacy policy.</p>
 
 
+
 <form asp-page-handler="Result" method="post">
-    <textarea rows="4" cols="50" asp-for="Input"></textarea>
-    <textarea rows="4" cols="50">@Model.Result </textarea>
-
-    <button class="btn btn-default">Click</button>
-
+    <textarea rows="15" cols="50" asp-for="Input"></textarea>
+    <textarea rows="15" cols="20">@PrivacyModel.Result </textarea>
+    <button class="btn btn-default">Check</button>
 </form>
-  
+
+<form asp-page-handler="Delete" method="post">
+    <button class="btn btn-default">Delete</button>
+</form>
+
+<form asp-page-handler="Download" method="get">
+    <a class="form-control btn btn-default" href="/download?name=test.txt" target="_blank">Download</a>
+</form>
+
+
+
+
+

@@ -81,10 +81,10 @@ namespace IBAN_Checking_Library
 
         public List<CheckingResult> CheckList(string s)
         {
+            var toReturn = new List<CheckingResult>();
+
             string[] stringSeparators = new string[] { "\r\n", ";" };
             string[] lines = s.Split(stringSeparators, StringSplitOptions.None);
-
-            var toReturn = new List<CheckingResult>();
 
             foreach(string line in lines)
             {

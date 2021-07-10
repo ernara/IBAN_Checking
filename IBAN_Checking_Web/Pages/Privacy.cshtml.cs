@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IBAN_Checking_Library;
+using System.IO;
 
 namespace IBAN_Checking_Web.Pages
 {
@@ -14,17 +15,28 @@ namespace IBAN_Checking_Web.Pages
         [BindProperty]
         public string Input { get; set; }
         [BindProperty]
-        public string Result { get; set; }
+        public static string Result { get; set; }
 
         private readonly IChecker Checker;
 
         public void OnPostResult()
         {
             Result = "";
-            foreach (var item in Checker.CheckList(Input))
+            
+            if (Input!=null)
             {
-                Result += item.ToString() + "\n";
+                foreach (var item in Checker.CheckList(Input))
+                {
+                    Result += item.ToString() + "\n";
+                }
             }
+
+        }
+
+        public void OnPostDelete()
+        {
+            Input = "";
+            Result = "";
         }
 
         public PrivacyModel(IChecker checker)
@@ -32,9 +44,20 @@ namespace IBAN_Checking_Web.Pages
             Checker = checker;
         }
 
-        public void OnGet()
+        public IActionResult OnGetDownload(string name)
         {
+            //using (MemoryStream stream = new MemoryStream())
+            //{
+            //    StreamWriter objstreamwriter = new StreamWriter(stream);
+            //    objstreamwriter.Write("This is the content");
+            //    objstreamwriter.Flush();
+            //    objstreamwriter.Close();
+            //    return File(stream.ToArray(), "text/plain", "file.txt");
+            //}
+
+            var content = new byte[] { 1, 2, 3 };
+            return File(content, "application/octet-stream", name);
         }
-        
+
     }
 }
