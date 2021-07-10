@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.IO;
 
 
 namespace IBAN_Checking_Library
@@ -14,85 +15,36 @@ namespace IBAN_Checking_Library
     {
         public string Result { get; set; }
 
-        private static readonly IDictionary<string, int> Lengths = new Dictionary<string, int>
+        private static readonly IDictionary<string, int> Lengths = new Dictionary<string, int>();
+
+        public Checker()
         {
-            {"AL", 28},
-            {"AD", 24},
-            {"AT", 20},
-            {"AZ", 28},
-            {"BE", 16},
-            {"BH", 22},
-            {"BA", 20},
-            {"BR", 29},
-            {"BG", 22},
-            {"CR", 21},
-            {"HR", 21},
-            {"CY", 28},
-            {"CZ", 24},
-            {"DK", 18},
-            {"DO", 28},
-            {"EE", 20},
-            {"FO", 18},
-            {"FI", 18},
-            {"FR", 27},
-            {"GE", 22},
-            {"DE", 22},
-            {"GI", 23},
-            {"GR", 27},
-            {"GL", 18},
-            {"GT", 28},
-            {"HU", 28},
-            {"IS", 26},
-            {"IE", 22},
-            {"IL", 23},
-            {"IT", 27},
-            {"KZ", 20},
-            {"KW", 30},
-            {"LV", 21},
-            {"LB", 28},
-            {"LI", 21},
-            {"LT", 20},
-            {"LU", 20},
-            {"MK", 19},
-            {"MT", 31},
-            {"MR", 27},
-            {"MU", 30},
-            {"MC", 27},
-            {"MD", 24},
-            {"ME", 22},
-            {"NL", 18},
-            {"NO", 15},
-            {"PK", 24},
-            {"PS", 29},
-            {"PL", 28},
-            {"PT", 25},
-            {"RO", 24},
-            {"SM", 27},
-            {"SA", 24},
-            {"RS", 22},
-            {"SK", 24},
-            {"SI", 19},
-            {"ES", 24},
-            {"SE", 24},
-            {"CH", 21},
-            {"TN", 24},
-            {"TR", 26},
-            {"AE", 23},
-            {"GB", 22},
-            {"VG", 24}
-        };
+            ReadCountryCodes();
+        }
+
+        public static void ReadCountryCodes()
+        {
+            using var sr = new StreamReader("CountryCodes.txt");
+            string line;
+            string[] array = new string[2];
+            while ((line = sr.ReadLine()) != null)
+            {
+                array = line.Split(' ');
+                Lengths.Add(array[0], Convert.ToInt32(array[1]));
+            }
+        }
 
         public List<string> CheckList(string s)
         {
-            var toReturn = new List<string>() { "IBAN\tStatus" };                  
+            var toReturn = new List<string>() { "IBAN\tStatus" };
 
             string[] stringSeparators = new string[] { "\r\n", ";" };
             string[] lines = s.Split(stringSeparators, StringSplitOptions.None);
 
 
-            foreach(string line in lines)
+            foreach (string line in lines)
             {
-                if (line.Length>0)
+                if (line.Length > 0)
                 {
                     toReturn.Add($"{line}\t{Check(line)}");
                 }
