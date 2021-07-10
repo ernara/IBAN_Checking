@@ -14,15 +14,28 @@
             <textarea rows="15" class="col-sm">@Model.Result </textarea>
         </div>
     </div>
-    <button class="btn btn-default">Check</button>
+    <div class="row">
+        <div class="col-sm-1">
+            <button class="btn btn-sm btn-primary btn-block">Check</button>
+        </div>
+    </div>
+
 </form>
 
 
 
 <form asp-page-handler="Delete" method="post">
-    <button class="btn btn-warning">Delete</button>
+    <div class="row">
+        <div class="col-sm-1">
+            <button class="btn btn-sm btn-danger btn-block">Delete</button>
+        </div>
+    </div>
 </form>
 
 <form asp-page-handler="Download" method="get">
-    <a class="btn btn-default" href="/download?name=test.txt" target="_blank">Download</a>
+    <div class="row">
+        <div class="col-sm-1">
+            <a class="btn btn-sm btn-dark btn-block" href="/download?name=test.xls" target="_blank">Download</a>
+        </div>
+    </div>
 </form>

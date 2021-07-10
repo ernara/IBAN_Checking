@@ -84,16 +84,17 @@ namespace IBAN_Checking_Library
 
         public List<string> CheckList(string s)
         {
-            var toReturn = new List<string>();
+            var toReturn = new List<string>() { "IBAN\tStatus" };                  
 
             string[] stringSeparators = new string[] { "\r\n", ";" };
             string[] lines = s.Split(stringSeparators, StringSplitOptions.None);
+
 
             foreach(string line in lines)
             {
                 if (line.Length>0)
                 {
-                    toReturn.Add($"{line} {Check(line)}");
+                    toReturn.Add($"{line}\t{Check(line)}");
                 }
             }
 
