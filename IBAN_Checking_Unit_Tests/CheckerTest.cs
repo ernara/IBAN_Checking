@@ -26,22 +26,23 @@ namespace IBAN_Checking_Unit_Tests
             Assert.AreEqual(CheckingResult.IsValid, Checker.Check("LT 6_0-1010012345678901"));
         }
 
-        [Test]
-        public void CheckList()
-        {
-            var ExpectedResult = new List<CheckingResult>() { CheckingResult.ValueTooSmall , CheckingResult.CountryCodeNotKnown , 
-                CheckingResult.ValueTooSmall,CheckingResult.ValueTooBig, CheckingResult.ValueFailsModule97Check, CheckingResult.IsValid, CheckingResult.IsValid};
-            var Result = new List<CheckingResult>(Checker.CheckList("LT60;LL8330001234567;LT60101001234567890;LT6010100123456789010;LT601010012345678902" +
-                ";LT601010012345678901;LT 6_0-1010012345678901;"));
+        //[Test]
+        //public void CheckList()
+        //{
+        //    var ExpectedResult = new List<CheckingResult>() { CheckingResult.ValueTooSmall , CheckingResult.CountryCodeNotKnown , 
+        //        CheckingResult.ValueTooSmall,CheckingResult.ValueTooBig, CheckingResult.ValueFailsModule97Check, CheckingResult.IsValid, CheckingResult.IsValid};
 
-            for(int i=0;i<ExpectedResult.Count;i++)
-            {
-                Assert.AreEqual(ExpectedResult[i], Result[i]);
-            }
+        //    var Result = new List<CheckingResult>(Checker.CheckList("LT60;LL8330001234567;LT60101001234567890;LT6010100123456789010;LT601010012345678902" +
+        //        ";LT601010012345678901;LT 6_0-1010012345678901;"));
 
-            Result = new List<CheckingResult>(Checker.CheckList(""));
-            Assert.AreEqual(0,Result.Count);
+        //    for(int i=0;i<ExpectedResult.Count;i++)
+        //    {
+        //        Assert.AreEqual(ExpectedResult[i], Result[i]);
+        //    }
 
-        }
+        //    Result = new List<CheckingResult>(Checker.CheckList(""));
+        //    Assert.AreEqual(0,Result.Count);
+
+        //}
     }
 }

@@ -4,6 +4,7 @@ namespace IBAN_Checking_Library
 {
     public interface IChecker
     {
-        List<CheckingResult> CheckList(string s);
+        string Result { get; set; }
+        List<string> CheckList(string s);
     }
 }

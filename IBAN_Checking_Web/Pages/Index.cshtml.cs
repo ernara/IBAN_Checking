@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IBAN_Checking_Library;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,16 +11,43 @@ namespace IBAN_Checking_Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        [BindProperty]
+        public string Input { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        [BindProperty]
+        public string Result { get; set; }
+
+        public IChecker Checker { get; set; }
+
+
+        public void OnPostResult()
         {
-            _logger = logger;
+            Checker.Result = "";
+
+            //string[] stringSeparators = new string[] { "\r\n", ";" };
+            //string[] lines = Input.Split(stringSeparators, StringSplitOptions.None);
+            //Input = string.Join("\n",lines);
+
+            if (Input != null)
+            {
+                foreach (var item in Checker.CheckList(Input))
+                {
+                    Checker.Result += item + "\n";
+                }
+            }
+
+            Result = Checker.Result;
         }
 
-        public void OnGet()
+        public void OnPostDelete()
         {
+            Input = "";
+            Checker.Result = "";
+        }
 
+        public IndexModel(IChecker checker)
+        {
+            Checker = checker;
         }
     }
 }

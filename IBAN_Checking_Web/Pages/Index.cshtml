@@ -4,7 +4,25 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form asp-page-handler="Result" method="post">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <textarea rows="15" class="col-sm" asp-for="Input"></textarea>
+        </div>
+        <div class="col-sm-4">
+            <textarea rows="15" class="col-sm">@Model.Result </textarea>
+        </div>
+    </div>
+    <button class="btn btn-default">Check</button>
+</form>
+
+
+
+<form asp-page-handler="Delete" method="post">
+    <button class="btn btn-warning">Delete</button>
+</form>
+
+<form asp-page-handler="Download" method="get">
+    <a class="btn btn-default" href="/download?name=test.txt" target="_blank">Download</a>
+</form>

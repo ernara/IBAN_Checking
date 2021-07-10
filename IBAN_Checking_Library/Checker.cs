@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace IBAN_Checking_Library
 {
+
     public class Checker : IChecker
     {
+        public string Result { get; set; }
+
         private static readonly IDictionary<string, int> Lengths = new Dictionary<string, int>
         {
             {"AL", 28},
@@ -79,9 +82,9 @@ namespace IBAN_Checking_Library
             {"VG", 24}
         };
 
-        public List<CheckingResult> CheckList(string s)
+        public List<string> CheckList(string s)
         {
-            var toReturn = new List<CheckingResult>();
+            var toReturn = new List<string>();
 
             string[] stringSeparators = new string[] { "\r\n", ";" };
             string[] lines = s.Split(stringSeparators, StringSplitOptions.None);
@@ -90,7 +93,7 @@ namespace IBAN_Checking_Library
             {
                 if (line.Length>0)
                 {
-                    toReturn.Add(Check(line));
+                    toReturn.Add($"{line} {Check(line)}");
                 }
             }
 
