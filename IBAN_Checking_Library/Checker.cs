@@ -11,7 +11,6 @@ namespace IBAN_Checking_Library
 {
     public class Checker : IChecker
     {
-
         private static readonly IDictionary<string, int> Lengths = new Dictionary<string, int>
         {
             {"AL", 28},
