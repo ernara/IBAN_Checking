@@ -13,7 +13,8 @@ namespace IBAN_Checking_Library
 
     public class Checker : IChecker
     {
-        public string Result { get; set; }
+        public string Input { get; set; }
+        public List<Result> Result { get; set; }
 
         private static readonly IDictionary<string, int> Lengths = new Dictionary<string, int>();
 
@@ -34,11 +35,11 @@ namespace IBAN_Checking_Library
             }
         }
 
-        public List<string> CheckList(string s)
+        public List<Result> CheckList(string s)
         {
-            var toReturn = new List<string>() { "IBAN\tStatus" };
+            var toReturn = new List<Result>();
 
-            string[] stringSeparators = new string[] { "\r\n", ";" };
+            string[] stringSeparators = new string[] { "\r\n", ";", "\t" };
             string[] lines = s.Split(stringSeparators, StringSplitOptions.None);
 
 
@@ -46,7 +47,7 @@ namespace IBAN_Checking_Library
             {
                 if (line.Length > 0)
                 {
-                    toReturn.Add($"{line}\t{Check(line)}");
+                    toReturn.Add(Check(line));
                 }
             }
 
@@ -54,11 +55,11 @@ namespace IBAN_Checking_Library
         }
 
 
-        public CheckingResult Check(string s)
+        public Result Check(string s)
         {
             if (s.Length < 15)
             {
-                return CheckingResult.ValueTooSmall;
+                return new Result(s, CheckingResult.ValueTooShort);
             }
 
             var charsToRemove = new List<char>() { ' ', '_', '-' };
@@ -70,14 +71,14 @@ namespace IBAN_Checking_Library
             var countryCodeKnown = Lengths.TryGetValue(countryCode, out int lengthForCountryCode);
             if (!countryCodeKnown)
             {
-                return CheckingResult.CountryCodeNotKnown;
+                return new Result(s, CheckingResult.CountryCodeNotKnown);
             }
 
             if (Filtered.Length < lengthForCountryCode)
-                return CheckingResult.ValueTooSmall;
+                return new Result(s, CheckingResult.ValueTooShort);
 
             if (Filtered.Length > lengthForCountryCode)
-                return CheckingResult.ValueTooBig;
+                return new Result(s, CheckingResult.ValueTooLong);
 
             return Module97Check(Filtered);
         }
@@ -92,7 +93,7 @@ namespace IBAN_Checking_Library
             return str;
         }
 
-        private CheckingResult Module97Check(string s)
+        private Result Module97Check(string s)
         {
             var newIban = s[4..] + s.Substring(0, 4);
 
@@ -102,9 +103,9 @@ namespace IBAN_Checking_Library
             var remainder = BigInteger.Parse(newIban) % 97;
 
             if (remainder != 1)
-                return CheckingResult.ValueFailsModule97Check;
+                return new Result(s, CheckingResult.ValueFailsModule97Check);
 
-            return CheckingResult.IsValid;
+            return new Result(s, CheckingResult.IsValid);
         }
     }
 }

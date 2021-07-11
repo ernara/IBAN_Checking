@@ -1,17 +1,39 @@
 ﻿@page
+@using IBAN_Checking_Library;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
+
 <form asp-page-handler="Result" method="post">
 
     <div class="row">
-        <div class="col-sm-5 col-md-3">
+        <div class="col-sm-5 col-md-3 w-50">
             <textarea rows="15" class="col-sm form-control" asp-for="Input" placeholder="IBAN"></textarea>
         </div>
-        <div class="col-sm-7 col-md-5">
-            <textarea rows="15" class="col-sm form-control" readonly>@Model.Result  </textarea>
+        <div class="col-sm-7 col-md-5 ml-n4 w-50">
+            @if (Model.Result != null)
+            {
+                <table class="table table-sm" style="max-height:500px !important; overflow-y: scroll">
+                    <thead>
+                        <tr >
+                            <th>IBAN</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var result in Model.Result)
+                        {
+                            <tr class="table-@(result.CheckingResult == CheckingResult.IsValid ? "success" : "danger")">
+                                <td>@result.IBAN</td>
+                                <td>@result.CheckingResult</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
         </div>
     </div>
     <div class="row">
@@ -32,19 +54,34 @@
     </div>
 </form>
 
-<form asp-page-handler="Download" method="get">
+<form asp-page-handler="Download" method="post">
     <div class="row">
         <div class="col-sm-6 col-md-2 col-lg-1">
-            <a class="btn btn-sm btn-dark btn-block mt-1" href="/download?name=test.xls" target="_blank">Download</a>
+            <button class="btn btn-sm btn-dark btn-block mt-1" type="submit">Download</button>
+        </div>
+        <div class="col-sm-6 col-md-2 col-lg-1">
+            <select asp-for="Format" class="form-control-sm mt-1 ml-n4 w-auto">
+                <option value="txt">txt</option>
+                <option value="xls">xls</option>
+                <option value="csv">csv</option>
+            </select>
         </div>
     </div>
+
 </form>
 
-<div class="text-center">
-    <h1>Upload File</h1>
-</div>
-
-<form method="post" enctype="multipart/form-data">
-    <input asp-for="UploadedFile" />
-    <input type="submit" />
+<form method="post" enctype="multipart/form-data" class="mt-1">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile04" asp-for="UploadedFile">
+                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

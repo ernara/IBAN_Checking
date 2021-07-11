@@ -20,6 +20,24 @@ namespace IBAN_Checking_Web.Pages
         [BindProperty]
         public IFormFile UploadedFile { get; set; }
 
+        [BindProperty]
+        public string Format { get; set; }
+
+        [BindProperty]
+        public string Input { get; set; }
+
+        [BindProperty]
+        public List<Result> Result { get; set; }
+
+        public IChecker Checker { get; set; }
+
+
+        public void OnGet()
+        {
+            Input = Checker.Input;
+            Result = Checker.Result;
+        }
+
         public async Task OnPostAsync()
         {
             if (UploadedFile == null || UploadedFile.Length == 0)
@@ -47,38 +65,31 @@ namespace IBAN_Checking_Web.Pages
             fi.Delete();
         }
 
-        [BindProperty]
-        public string Input { get; set; }
-
-        [BindProperty]
-        public string Result { get; set; }
-
-        public IChecker Checker { get; set; }
-
-
-        public void OnPostResult()
+        public IActionResult OnPostResult()
         {
-            Checker.Result = "";
-
-            //string[] stringSeparators = new string[] { "\r\n", ";" };
-            //string[] lines = Input.Split(stringSeparators, StringSplitOptions.None);
-            //Input = string.Join("\n",lines);
+            Checker.Result = new List<Result>();
+            Checker.Input = Input;
 
             if (Input != null)
             {
-                foreach (var item in Checker.CheckList(Input))
-                {
-                    Checker.Result += item + "\n";
-                }
+                Checker.Result = Checker.CheckList(Input);
             }
 
             Result = Checker.Result;
+
+            return Redirect("/");
         }
 
-        public void OnPostDelete()
+        public IActionResult OnPostDelete()
         {
-            Input = "";
-            Checker.Result = "";
+            Checker.Input = "";
+            Checker.Result = new List<Result>();
+            return Redirect("/");
+        }
+
+        public IActionResult OnPostDownload()
+        {
+            return Redirect($"/download?name=results&format={Format}");
         }
 
 

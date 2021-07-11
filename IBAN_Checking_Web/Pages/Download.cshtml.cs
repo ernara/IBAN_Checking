@@ -17,7 +17,7 @@ namespace IBAN_Checking_Web.Pages
             Checker = checker;
         }
 
-        public IActionResult OnGet(string name)
+        public IActionResult OnGet(string name, string format)
         {
             using (MemoryStream stream = new MemoryStream())
             {
@@ -25,7 +25,7 @@ namespace IBAN_Checking_Web.Pages
                 objstreamwriter.Write(Checker.Result);
                 objstreamwriter.Flush();
                 objstreamwriter.Close();
-                return File(stream.ToArray(), "text/plain", name);
+                return File(stream.ToArray(), "text/plain", $"{name}.{format}");
             }
         }
 

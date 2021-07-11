@@ -8,9 +8,9 @@ namespace IBAN_Checking_Library
 {
     public enum CheckingResult
     {
-        ValueTooSmall,
+        ValueTooShort,
         CountryCodeNotKnown,
-        ValueTooBig,
+        ValueTooLong,
         ValueFailsModule97Check,
         IsValid
     }
