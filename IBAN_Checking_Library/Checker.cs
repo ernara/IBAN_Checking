@@ -105,7 +105,7 @@ namespace IBAN_Checking_Library
             if (remainder != 1)
                 return new Result(s, CheckingResult.ValueFailsModule97Check);
 
-            return new Result(s, CheckingResult.IsValid);
+            return new Result(s, CheckingResult.Valid);
         }
     }
 }

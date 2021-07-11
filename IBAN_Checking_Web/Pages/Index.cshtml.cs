@@ -27,7 +27,9 @@ namespace IBAN_Checking_Web.Pages
         public string Input { get; set; }
 
         [BindProperty]
-        public List<Result> Result { get; set; }
+        public List<Result> Result { get; set; } = new List<Result>();
+
+
 
         public IChecker Checker { get; set; }
 
