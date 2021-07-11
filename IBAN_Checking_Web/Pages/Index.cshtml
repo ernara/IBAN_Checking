@@ -7,11 +7,11 @@
 <form asp-page-handler="Result" method="post">
 
     <div class="row">
-        <div class="col-sm-5 col-md-3" >
+        <div class="col-sm-5 col-md-3">
             <textarea rows="15" class="col-sm form-control" asp-for="Input" placeholder="IBAN"></textarea>
         </div>
         <div class="col-sm-7 col-md-5">
-            <textarea rows="15" class="col-sm form-control" readonly >@Model.Result  </textarea>
+            <textarea rows="15" class="col-sm form-control" readonly>@Model.Result  </textarea>
         </div>
     </div>
     <div class="row">
@@ -38,4 +38,13 @@
             <a class="btn btn-sm btn-dark btn-block mt-1" href="/download?name=test.xls" target="_blank">Download</a>
         </div>
     </div>
+</form>
+
+<div class="text-center">
+    <h1>Upload File</h1>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="UploadedFile" />
+    <input type="submit" />
 </form>
