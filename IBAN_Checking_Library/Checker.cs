@@ -31,7 +31,10 @@ namespace IBAN_Checking_Library
             while ((line = sr.ReadLine()) != null)
             {
                 array = line.Split(' ');
-                Lengths.Add(array[0], Convert.ToInt32(array[1]));
+                if (!Lengths.ContainsKey(array[0]))
+                {
+                    Lengths.Add(array[0], Convert.ToInt32(array[1]));
+                }
             }
         }
 
@@ -41,7 +44,6 @@ namespace IBAN_Checking_Library
 
             string[] stringSeparators = new string[] { "\r\n", ";", "\t" };
             string[] lines = s.Split(stringSeparators, StringSplitOptions.None);
-
 
             foreach (string line in lines)
             {
@@ -53,7 +55,6 @@ namespace IBAN_Checking_Library
 
             return toReturn;
         }
-
 
         public Result Check(string s)
         {

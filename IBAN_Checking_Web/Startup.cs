@@ -25,7 +25,7 @@ namespace IBAN_Checking_Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddSingleton<IChecker, Checker>();
+            services.AddScoped<IChecker, Checker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
