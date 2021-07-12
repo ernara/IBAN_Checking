@@ -8,7 +8,7 @@ You can find this software on site: https://ibancheckingweb20210711204029.azurew
 
 # Interface architecture
 
-You can check IBAN(s) validation in two ways:
+You can check IBAN validation in two ways:
 <ul>
 <li>write IBAN in text area</li>
 <li>upload file with IBAN list</li>
@@ -22,7 +22,7 @@ IBANS can be seperated by these seperators:
 </ul>
 
 
-You can see IBAN(s) results in two ways:
+You can see IBAN results in two ways:
 <ul>
 <li>in table</li>
 <li>download it</li>
