@@ -43,5 +43,21 @@ namespace IBAN_Checking_Unit_Tests
             Result = new List<Result>(Checker.CheckList(""));
             Assert.AreEqual(0, Result.Count);
         }
+
+        [Test]
+        public void ReadCountryCodes()
+        {
+            Checker.ReadCountryCodes();
+            Assert.IsTrue(20 < Checker.Lengths.Count);
+        }
+
+        [Test]
+        public void Module97Check()
+        {
+            Assert.AreEqual("LT338445852811424896", Checker.Module97Check("LT338445852811424896").IBAN);
+            Assert.AreEqual(CheckingResult.FailedModule97Check, Checker.Module97Check("LT338445852811424899").CheckingResult);
+            Assert.AreEqual(CheckingResult.Valid, Checker.Module97Check("LT338445852811424896").CheckingResult);
+        }
+
     }
 }

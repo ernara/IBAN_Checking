@@ -16,7 +16,7 @@ namespace IBAN_Checking_Library
         public string Input { get; set; }
         public List<Result> Result { get; set; }
 
-        private static readonly IDictionary<string, int> Lengths = new Dictionary<string, int>();
+        public static readonly Dictionary<string, int> Lengths = new Dictionary<string, int>();
 
         public Checker()
         {
@@ -94,7 +94,7 @@ namespace IBAN_Checking_Library
             return str;
         }
 
-        private Result Module97Check(string s)
+        public Result Module97Check(string s)
         {
             var newIban = s[4..] + s.Substring(0, 4);
 
