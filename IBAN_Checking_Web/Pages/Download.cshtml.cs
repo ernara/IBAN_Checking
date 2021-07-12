@@ -30,18 +30,18 @@ namespace IBAN_Checking_Web.Pages
                         var maxLength = Checker.Result.Max(r => r.IBAN.Length);
                         var normalizedLength = maxLength < 4 ? 4 : maxLength;
 
-                        sr.WriteLine($"+{new string('-', 21 + normalizedLength + 7)}+");
+                        sr.WriteLine($"+{new string('-', 17 + normalizedLength + 7)}+");
 
 
                         sr.WriteLine(string.Format("| {0," + -normalizedLength + "} | {1,-19} |", "IBAN", "Status"));
-                        sr.WriteLine($"+{new string('-', 21 + normalizedLength + 7)}+");
+                        sr.WriteLine($"+{new string('-', 17 + normalizedLength + 7)}+");
 
 
                         foreach (var result in Checker.Result)
                         {
                             sr.WriteLine(string.Format("| {0," + -normalizedLength + "} | {1,-19} |", result.IBAN, result.CheckingResult));
                         }
-                        sr.WriteLine($"+{new string('-', 21 + normalizedLength + 7)}+");
+                        sr.WriteLine($"+{new string('-', 17 + normalizedLength + 7)}+");
 
                     }
                     else
