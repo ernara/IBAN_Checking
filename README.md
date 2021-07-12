@@ -1,3 +1,11 @@
-# IBAN_Checking
+# IBAN Checking
 
-IBAN Checking is a awesome tool for checking IBAN lists. It checks all putted IBANS and gives status for every IBAN. 
+IBAN Checking is a awesome software for for IBAN number checking. It can test IBAN for one account and provided list.
+
+# Where to find
+
+You can find this software on site: https://ibancheckingweb20210711204029.azurewebsites.net
+
+# interface architecture
+
+You can 
