@@ -33,13 +33,13 @@ namespace IBAN_Checking_Web.Pages
                         sr.WriteLine($"+{new string('-', 21 + normalizedLength + 7)}+");
 
 
-                        sr.WriteLine(string.Format("| {0," + -normalizedLength + "} | {1,-23} |", "IBAN", "Status"));
+                        sr.WriteLine(string.Format("| {0," + -normalizedLength + "} | {1,-19} |", "IBAN", "Status"));
                         sr.WriteLine($"+{new string('-', 21 + normalizedLength + 7)}+");
 
 
                         foreach (var result in Checker.Result)
                         {
-                            sr.WriteLine(string.Format("| {0," + -normalizedLength + "} | {1,-23} |", result.IBAN, result.CheckingResult));
+                            sr.WriteLine(string.Format("| {0," + -normalizedLength + "} | {1,-19} |", result.IBAN, result.CheckingResult));
                         }
                         sr.WriteLine($"+{new string('-', 21 + normalizedLength + 7)}+");
 

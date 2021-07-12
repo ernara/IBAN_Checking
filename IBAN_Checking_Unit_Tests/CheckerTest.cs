@@ -23,7 +23,7 @@ namespace IBAN_Checking_Unit_Tests
             Assert.AreEqual(CheckingResult.CountryCodeNotKnown, Checker.Check("LL8330001234567").CheckingResult);
             Assert.AreEqual(CheckingResult.ValueTooShort, Checker.Check("LT60101001234567890").CheckingResult);
             Assert.AreEqual(CheckingResult.ValueTooLong, Checker.Check("LT6010100123456789010").CheckingResult);
-            Assert.AreEqual(CheckingResult.ValueFailsModule97Check, Checker.Check("LT601010012345678902").CheckingResult);
+            Assert.AreEqual(CheckingResult.FailedModule97Check, Checker.Check("LT601010012345678902").CheckingResult);
             Assert.AreEqual(CheckingResult.Valid, Checker.Check("LT601010012345678901").CheckingResult);
             Assert.AreEqual(CheckingResult.Valid, Checker.Check("LT 6_0-1010012345678901").CheckingResult);
         }

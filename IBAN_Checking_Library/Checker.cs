@@ -104,7 +104,7 @@ namespace IBAN_Checking_Library
             var remainder = BigInteger.Parse(newIban) % 97;
 
             if (remainder != 1)
-                return new Result(s, CheckingResult.ValueFailsModule97Check);
+                return new Result(s, CheckingResult.FailedModule97Check);
 
             return new Result(s, CheckingResult.Valid);
         }

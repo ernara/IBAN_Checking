@@ -11,7 +11,7 @@ namespace IBAN_Checking_Library
         ValueTooShort,
         CountryCodeNotKnown,
         ValueTooLong,
-        ValueFailsModule97Check,
+        FailedModule97Check,
         Valid
     }
 }
