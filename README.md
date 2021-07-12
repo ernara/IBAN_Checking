@@ -6,7 +6,7 @@ IBAN Checking is a awesome software for for IBAN number checking. It can test IB
 
 You can find this software on site: https://ibancheckingweb20210711204029.azurewebsites.net
 
-# interface architecture
+# Interface architecture
 
 You can check IBAN(s) validation in two ways:
 <ul>
@@ -22,7 +22,7 @@ IBANS can be seperated by these seperators:
 </ul>
 
 
-You can see IBAN(s) reslts in two ways:
+You can see IBAN(s) results in two ways:
 <ul>
 <li>in table</li>
 <li>download it</li>
